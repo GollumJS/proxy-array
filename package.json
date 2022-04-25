@@ -1,0 +1,42 @@
+{
+  "name": "@gollum-js/proxy-array",
+  "version": "1.0.0",
+  "description": "Create a proxy for array accessor",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "esnext": "dist/esm/index.js",
+  "typings": "./dist/typings/index.d.ts",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "build": "npm run clean && npm run build:test && npm run build:cjs && npm run build:esm",
+    "build:cjs": "tsc -p tsconfig.json",
+    "build:esm": "tsc -p tsconfig.esm.json",
+    "build:test": "tsc -p tsconfig.test.json && node_modules/.bin/browserify dist/tests/tests/proxy-array.test.js > dist/tests/bundle.js && cp ./tests/index.html ./dist/tests/index.html",
+    "clean": "rm -fr dist",
+    "test": "jest",
+    "test:watch": "jest --watchAll"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:GollumJS/proxy-array.git"
+  },
+  "keywords": [
+    "proxy",
+    "array",
+    "accessor"
+  ],
+  "author": "Damien Duboeuf <smeagolworms4@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/GollumJS/proxy-array/issues"
+  },
+  "devDependencies": {
+    "@types/jest": "^27.0.2",
+    "browserify": "^17.0.0",
+    "jest": "^27.3.1",
+    "ts-jest": "^27.0.7",
+    "typescript": "^4.6.3"
+  }
+}

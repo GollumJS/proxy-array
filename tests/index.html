@@ -1,0 +1,59 @@
+<html>
+	<head>
+		<title>Unit test</title>
+		
+		<link
+			rel="stylesheet"
+			href="http://unpkg.com/jest-lite@1.0.0-alpha.4/dist/prettify.css"
+		/>
+		<style>
+			.jest-lite-report {
+				overflow-y:  auto;
+			}
+		</style>
+	</head>
+	<body>
+		
+		
+		<script
+		  crossorigin
+		  src="http://unpkg.com/jest-lite@1.0.0-alpha.4/dist/core.js"
+		></script>
+		<script
+			crossorigin
+			src="http://unpkg.com/jest-lite@1.0.0-alpha.4/dist/prettify.js"
+		></script>
+		
+		<script>
+			let {
+				core: {describe, it, expect, test, beforeEach, run},
+				prettify,
+			} = window.jestLite;
+			
+			describe.each = (dataSet) => {
+				return (description, cb) => {
+					for (const data of dataSet) {
+						describe(description, () => {
+							return cb(data);
+						})
+					}
+				};
+			};
+			
+			const oldExpect = expect;
+			expect = (value) => {
+				const result = oldExpect(value);
+				result.toStrictEqual = result.toEqual;
+				return result;
+			};
+			
+		</script>
+		<script
+			src="./bundle.js"
+		></script>
+		<script>
+			prettify.toHTML(run(), document.body);
+		</script>
+		
+	</body>
+</html>

@@ -1,6 +1,6 @@
 {
   "name": "@gollum-js/proxy-array",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Create a proxy for array accessor",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",

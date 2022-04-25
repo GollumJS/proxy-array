@@ -4,8 +4,8 @@ ProxyArray
 
 [![Build Status](https://github.com/GollumJS/proxy-array/actions/workflows/build.yml/badge.svg?branch=master)](https://github.com/GollumJS/proxy-array/actions)
 [![Coverage](https://coveralls.io/repos/github/GollumJS/proxy-array/badge.svg?branch=master)](https://coveralls.io/github/GollumJS/proxy-array)
-[![Licence](https://img.shields.io/npm/l/@gollum-ts/proxy-array.svg?colorB=4B9081)](https://github.com/GollumJS/proxy-array/blob/master/LICENSE)
-[![NPM version](https://img.shields.io/npm/v/@gollum-ts/proxy-array.svg)](https://www.npmjs.com/package/@proxy-array/annotation)
+[![Licence](https://img.shields.io/npm/l/@gollum-js/proxy-array.svg?colorB=4B9081)](https://github.com/GollumJS/proxy-array/blob/master/LICENSE)
+[![NPM version](https://img.shields.io/npm/v/@gollum-js/proxy-array.svg)](https://www.npmjs.com/package/@gollum-js/proxy-array)
 [![Discord](https://img.shields.io/discord/671741944149573687?color=purple&label=discord)](https://discord.gg/xMBc5SQ)
 
 Create a proxy for array accessor.

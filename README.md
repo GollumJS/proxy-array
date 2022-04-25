@@ -2,7 +2,7 @@
 
 ProxyArray
 
-[![Build Status](https://travis-ci.com/GollumJS/proxy-array.svg?branch=master)](https://app.travis-ci.com/github/GollumJS/proxy-array)
+[![Build Status](https://github.com/GollumSF/proxy-array/actions/workflows/build.yml/badge.svg?branch=master)](https://github.com/GollumSF/proxy-array/actions)
 [![Coverage](https://coveralls.io/repos/github/GollumJS/proxy-array/badge.svg?branch=master)](https://coveralls.io/github/GollumJS/proxy-array)
 [![Licence](https://img.shields.io/npm/l/@gollum-ts/annotation.svg?colorB=4B9081)](https://github.com/GollumJS/proxy-array/blob/master/LICENSE)
 [![NPM version](https://img.shields.io/npm/v/@gollum-ts/annotation.svg)](https://www.npmjs.com/package/@gollum-ts/annotation)

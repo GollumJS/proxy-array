@@ -15,7 +15,7 @@ And all array method works on proxy
 
 ## Install
 ```
-npm install @gollum-ts/proxy-array
+npm install @gollum-js/proxy-array
 ```
 
 ## Usage

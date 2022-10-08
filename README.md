@@ -38,7 +38,7 @@ const proxy = createProxyArray({
         return true;
     },
     getLength(): number {
-        return storage.length;
+        return length;
     },
     setLength(value: number): boolean {
         storage.length = value;

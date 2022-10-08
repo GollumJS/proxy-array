@@ -18,16 +18,16 @@ And all array method works on proxy
 npm install @gollum-js/proxy-array
 ```
 
-## Usage
+## Usage TS
 
 ```typescript
-import { createProxyArray } from '../src';
+import { createProxyArray } from '@gollum-js/proxy-array';
 
 const storage = {};
 let length = 0;
 
 const proxy = createProxyArray({
-    get(index: number) {
+    get(index: number): any {
         return storage[index];
     },
     set(index: number, value: any): boolean {
@@ -57,5 +57,48 @@ console.log(length) // 3
 
 console.log(proxy[1]) // [ 'b' ]
 
+
+```
+
+## Usage JS
+
+```javascript
+
+const {createProxyArray} = require("@gollum-js/proxy-array")
+
+const storage = {};
+let length = 0;
+
+const proxy = createProxyArray({
+    get(index) {
+        return storage[index];
+    },
+    set(index, value) {
+        storage[index] = value;
+        if (length < index + 1) {
+        	length = index + 1;
+        }
+        return true;
+    },
+    getLength() {
+        return storage.length;
+    },
+    setLength(value) {
+        storage.length = value;
+        return true;
+    }
+});
+ 
+ 
+proxy.push('a');
+proxy.push('b');
+proxy.push('c');
+ 
+console.log(storage) // [ 'a', 'b', 'c' ]
+console.log(length) // 3
+ 
+ 
+console.log(proxy[1]) // [ 'b' ]
+ 
 
 ```

@@ -510,7 +510,6 @@ describe.each(dataSet)('All array methods  test', ({ isControl }) => {
 		expect(Object.keys(proxy)).toEqual(Object.keys(baseArray));
 	});
 	
-	
 	test('Test getOwnPropertyNames'+(isControl ? '[CONTROL]' : ''), () => {
 		storage[0] = 'a';
 		storage[1] = 'b';
@@ -521,4 +520,20 @@ describe.each(dataSet)('All array methods  test', ({ isControl }) => {
 		
 		expect(Object.getOwnPropertyNames(proxy)).toEqual(Object.getOwnPropertyNames(baseArray));
 	});
+	
+	
+	test('Test getOwnPropertyDescriptor Outside'+(isControl ? '[CONTROL]' : ''), () => {
+		storage[0] = 'a';
+		storage[1] = 'b';
+		storage[2] = 'c';
+		storage[3] = 'd';
+		
+		expect(Object.getOwnPropertyDescriptor(proxy, '4')).toBeUndefined();
+	});
+	
+	test('Test getOwnPropertyDescriptor Not Exist'+(isControl ? '[CONTROL]' : ''), () => {
+		expect(Object.getOwnPropertyDescriptor(proxy, 'NOT_EXIST')).toBeUndefined();
+	});
+	
+	
 });

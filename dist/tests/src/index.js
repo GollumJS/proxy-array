@@ -11,7 +11,8 @@ var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.createProxyArray = void 0;
 function createProxyArray(accessor) {
-    var proxy = new Proxy([], {
+    var ar = [];
+    var proxy = new Proxy(ar, {
         get: function (target, property) {
             if (typeof property === 'string') {
                 if (property === 'length') {
@@ -87,6 +88,24 @@ function createProxyArray(accessor) {
             }
             target[property] = value;
             return true;
+        },
+        getOwnPropertyDescriptor: function (target, property) {
+            var index = parseInt(property, 10);
+            if (!isNaN(index)) {
+                if (index >= accessor.getLength(proxy)) {
+                    return undefined;
+                }
+                return { value: accessor.get(index, proxy), writable: true, enumerable: true, configurable: true };
+            }
+            if (property === 'length') {
+                return { value: accessor.getLength(proxy), writable: true, enumerable: false, configurable: false };
+            }
+            return Object.getOwnPropertyDescriptor(ar, property);
+        },
+        ownKeys: function (target) {
+            var list = Array.from(new Array(accessor.getLength(proxy))).map(function (_, i) { return i.toString(); });
+            list.push('length');
+            return list;
         }
     });
     return proxy;

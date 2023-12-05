@@ -12,7 +12,8 @@ var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.createProxyArray = void 0;
 function createProxyArray(accessor) {
-    var proxy = new Proxy([], {
+    var ar = [];
+    var proxy = new Proxy(ar, {
         get: function (target, property) {
             if (typeof property === 'string') {
                 if (property === 'length') {
@@ -88,6 +89,24 @@ function createProxyArray(accessor) {
             }
             target[property] = value;
             return true;
+        },
+        getOwnPropertyDescriptor: function (target, property) {
+            var index = parseInt(property, 10);
+            if (!isNaN(index)) {
+                if (index >= accessor.getLength(proxy)) {
+                    return undefined;
+                }
+                return { value: accessor.get(index, proxy), writable: true, enumerable: true, configurable: true };
+            }
+            if (property === 'length') {
+                return { value: accessor.getLength(proxy), writable: true, enumerable: false, configurable: false };
+            }
+            return Object.getOwnPropertyDescriptor(ar, property);
+        },
+        ownKeys: function (target) {
+            var list = Array.from(new Array(accessor.getLength(proxy))).map(function (_, i) { return i.toString(); });
+            list.push('length');
+            return list;
         }
     });
     return proxy;
@@ -217,7 +236,6 @@ describe.each(dataSet)('All array methods  test', function (_a) {
         storage[1] = 'b';
         storage[2] = 'c';
         storage[3] = 'd';
-        console.log('proxy.entries()', proxy, proxy.entries());
         expect(Array.from(proxy.entries())).toEqual([[0, 'a'], [1, 'b'], [2, 'c'], [3, 'd']]);
         expect(__spreadArray([], proxy, true)).toEqual(['a', 'b', 'c', 'd']);
     });
@@ -493,6 +511,22 @@ describe.each(dataSet)('All array methods  test', function (_a) {
         storage[3] = 'd';
         expect(JSON.stringify(proxy)).toStrictEqual('["a","b","c","d"]');
         expect(__spreadArray([], proxy, true)).toEqual(['a', 'b', 'c', 'd']);
+    });
+    test('Test ownKeys' + (isControl ? '[CONTROL]' : ''), function () {
+        storage[0] = 'a';
+        storage[1] = 'b';
+        storage[2] = 'c';
+        storage[3] = 'd';
+        var baseArray = ['a', 'b', 'c', 'd'];
+        expect(Object.keys(proxy)).toEqual(Object.keys(baseArray));
+    });
+    test('Test getOwnPropertyNames' + (isControl ? '[CONTROL]' : ''), function () {
+        storage[0] = 'a';
+        storage[1] = 'b';
+        storage[2] = 'c';
+        storage[3] = 'd';
+        var baseArray = ['a', 'b', 'c', 'd'];
+        expect(Object.getOwnPropertyNames(proxy)).toEqual(Object.getOwnPropertyNames(baseArray));
     });
 });
 

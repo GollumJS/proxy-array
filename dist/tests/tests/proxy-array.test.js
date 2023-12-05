@@ -120,7 +120,6 @@ describe.each(dataSet)('All array methods  test', function (_a) {
         storage[1] = 'b';
         storage[2] = 'c';
         storage[3] = 'd';
-        console.log('proxy.entries()', proxy, proxy.entries());
         expect(Array.from(proxy.entries())).toEqual([[0, 'a'], [1, 'b'], [2, 'c'], [3, 'd']]);
         expect(__spreadArray([], proxy, true)).toEqual(['a', 'b', 'c', 'd']);
     });
@@ -396,6 +395,22 @@ describe.each(dataSet)('All array methods  test', function (_a) {
         storage[3] = 'd';
         expect(JSON.stringify(proxy)).toStrictEqual('["a","b","c","d"]');
         expect(__spreadArray([], proxy, true)).toEqual(['a', 'b', 'c', 'd']);
+    });
+    test('Test ownKeys' + (isControl ? '[CONTROL]' : ''), function () {
+        storage[0] = 'a';
+        storage[1] = 'b';
+        storage[2] = 'c';
+        storage[3] = 'd';
+        var baseArray = ['a', 'b', 'c', 'd'];
+        expect(Object.keys(proxy)).toEqual(Object.keys(baseArray));
+    });
+    test('Test getOwnPropertyNames' + (isControl ? '[CONTROL]' : ''), function () {
+        storage[0] = 'a';
+        storage[1] = 'b';
+        storage[2] = 'c';
+        storage[3] = 'd';
+        var baseArray = ['a', 'b', 'c', 'd'];
+        expect(Object.getOwnPropertyNames(proxy)).toEqual(Object.getOwnPropertyNames(baseArray));
     });
 });
 //# sourceMappingURL=proxy-array.test.js.map

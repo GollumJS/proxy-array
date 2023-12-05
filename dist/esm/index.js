@@ -1,5 +1,6 @@
 export function createProxyArray(accessor) {
-    const proxy = new Proxy([], {
+    const ar = [];
+    const proxy = new Proxy(ar, {
         get: (target, property) => {
             if (typeof property === 'string') {
                 if (property === 'length') {
@@ -71,6 +72,24 @@ export function createProxyArray(accessor) {
             }
             target[property] = value;
             return true;
+        },
+        getOwnPropertyDescriptor(target, property) {
+            const index = parseInt(property, 10);
+            if (!isNaN(index)) {
+                if (index >= accessor.getLength(proxy)) {
+                    return undefined;
+                }
+                return { value: accessor.get(index, proxy), writable: true, enumerable: true, configurable: true };
+            }
+            if (property === 'length') {
+                return { value: accessor.getLength(proxy), writable: true, enumerable: false, configurable: false };
+            }
+            return Object.getOwnPropertyDescriptor(ar, property);
+        },
+        ownKeys(target) {
+            const list = Array.from(new Array(accessor.getLength(proxy))).map((_, i) => i.toString());
+            list.push('length');
+            return list;
         }
     });
     return proxy;
